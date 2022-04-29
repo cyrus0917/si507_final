@@ -29,8 +29,8 @@ Or the other two python files could be linked together for the execution integra
 ### Tree Design
 Simple_tree Example:
 ('Are you looking for the products designed for the 1.5+ years old?',(lego_cache['age-4-plus-years'], None, None), (lego_cache['age-1-plus-years'], None, None))
-Question/internal node consist of tuples of three things(A question to ask, what to do if th eanswer for question is 'yes', what to do if th eanswer for question is 'no')
-Answer/Leaf also consist of a 3-tuple,(Answee, None, None)
+Question/internal node consist of tuples of three things(A question to ask, what to do if the answer for question is 'yes', what to do if the answer for question is 'no')
+Answer/Leaf also consist of a 3-tuple,(Answer, None, None)
 Thus, the tree here is mainly for doing the age range filter and feedback the corresponding answer.
 
 ### notAnswer, isAnswer, yes, playAnswer, play_age_tree, loadTree and saveTree
@@ -47,8 +47,8 @@ All of them are prompted functions for getting the user's expected values.
 ### filter_out(Interactive)
 By comparing the objective's values to expected values to narrow the product options and filter out the suitable toys for user needs.
 
-### tabulate_list(Visulization)
-The visulization of filtered product information. Firstly, show the user a table including all the suitable toys' name, rating, price, inventory status and amount of pieces
+### tabulate_list(Visualization)
+The visualization of filtered product information. Firstly, show the user a table including all the suitable toys' name, rating, price, inventory status and amount of pieces
 After showing this table, a prompt would ask users that would they like to see the URL, name and price of each product. And user could directly buy toys through thr URL.
 
 ### main
@@ -60,8 +60,8 @@ For linking all the above functions, and coping with the error reports.
 2. sns.relplot is for seeing the relationship between pieces and price, the hue = Age_range would classify the scatter into different colors. 
 That would be helpful to identify the extra clues, like the pieces and prices of each age range.
 3. sns.jointplot(kde) is a great tool to check the central tendency of data points, and moreover, the distribution of pieces and price also be reflected by jointplot.
-4. bar chart helps get the proportion of products designed for each age range. Obviously, 6+ adn 9+ are the main customer segmentation of Lego group.
-5. pairplot is a comprehensive visulizing tool for getting several plots in a big graph. It is a great tool for detecting the negligible relationship between each variable.
+4. bar chart helps get the proportion of products designed for each age range. Obviously, 6+ and 9+ are the main customer segmentation of Lego group.
+5. pairplot is a comprehensive visualizing tool for getting several plots in a big graph. It is a great tool for detecting the negligible relationship between each variable.
 For instance, 1) the expensive toys are mainly distributed in 6+, 9+ and 18+; 2) Some toys' price are not that high even though they have many pieces. 
 Guess: piece of such toys is smaller than regular size and saves more costs of manufacturing them. And some toys are expensive even though they have less pieces. 
 Guess: Limited edition or the bigger sized pieces.
