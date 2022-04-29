@@ -1,4 +1,9 @@
 import json
+import copy
+import tabulate
+import pandas as pd
+import numpy as np
+import seaborn as sns
 
 lego_file = open('result_Lego.json', 'r')
 cache_lego_contents = lego_file.read()
@@ -78,7 +83,7 @@ def saveTree(tree, lego_tree_File):
             saveTree(tree[2], lego_tree_File)
         
 
-write_document = open('lego_tree.txt', 'w')
+write_document = open('lego_tree.json', 'w')
 saveTree(Tree_Age, write_document)
 
 def loadTree(treeFile):
@@ -134,9 +139,50 @@ def filter_out(objective, objective_rating, objective_price, objective_pieces, e
                 else:
                     return True
 
+def tabulate_list(list):
+    list1 = copy.deepcopy(list)
+    list2 = copy.deepcopy(list)
+    for items in list1:
+        del items['URL']
+        if items['Name'].isalpha():
+            items['Name'] = items['Name'].strip()
+        else:
+            items_name = ''
+            for word in items['Name']:
+                if word.isalpha() or word == ' ':
+                    items_name += word
+            items['Name'] = items_name
+                
+    dataset = list1
+    header = dataset[0].keys()
+    rows = [x.values() for x in dataset]
+    print('Wish the following results would help you sort out the perfect Lego toys!')
+    print(tabulate.tabulate(rows, header, tablefmt='grid'))
+    guide_answer = input('Would you like to see the url, which guides you to the page of products?')
+    if guide_answer in ['y', 'yes', 'yeah', 'yup', 'sure']:
+        for item in list2:
+            del item['Rating']
+            del item['Status']
+            del item['Pieces']
+            if item['Name'].isalpha():
+                item['Name'] = item['Name'].strip()
+            else:
+                item_name = ''
+                for word in item['Name']:
+                    if word.isalpha() or word == ' ':
+                        item_name += word
+                item['Name'] = item_name
+        dataset1 = list2
+        header1 = dataset1[0].keys()
+        rows1 = [x.values() for x in dataset1]
+        print('The URLs are as follows:')
+        print(tabulate.tabulate(rows1, header1, tablefmt='grid'))
+    else:
+        print('Thank you for supporting Lego!')
+
+
 def main():
-    
-    
+
     recommendation = []
     product_under_age = play_age_tree(Tree_Age)
     expected_rating = expectation_rating()
@@ -169,8 +215,8 @@ def main():
     if recommendation == []:
         print('There is no appropriate products options for you!')
     else:
-        print(recommendation)
-    return recommendation
+        tabulate_list(recommendation)
+
 
 if __name__ == '__main__':
     main()
